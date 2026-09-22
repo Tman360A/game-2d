@@ -1,4 +1,5 @@
-use macroquad::{audio, prelude::*, ui};
+use std::sync::{LazyLock, Mutex};
+use macroquad::audio::{self} ;
 use strum::IntoEnumIterator;
 use strum_macros::{AsRefStr, EnumIter};
 
@@ -14,12 +15,14 @@ pub enum Music {
 
 pub struct AudioHandler {
     current_song: Option<audio::Sound>,
-    songs: Option<Vec<audio::Sound>>
+    songs: Option<Vec<audio::Sound>>,
 }
+
+pub static AUDIOSYSTEM: LazyLock<Mutex<AudioHandler>> = LazyLock::new(|| Mutex::new(AudioHandler::new()));
 
 impl AudioHandler {
     
-    pub fn new() -> Self {
+    fn new() -> Self {
         Self {
             current_song: None,
             songs: None
@@ -39,17 +42,16 @@ impl AudioHandler {
     }
 
     pub fn play_song(&mut self, song: Music) {
+        if let Some(current_song) = &self.current_song {
+            audio::stop_sound(current_song);
+        }
+
         if let Some(songs) = &self.songs {
             let index = song as usize;
             if let Some(sound) = songs.get(index) {
-                audio::play_sound_once(&sound);
+                audio::play_sound(&sound, audio::PlaySoundParams {looped: true, volume: 1.});
                 self.current_song = Some(sound.clone())
-            } else {
-                warn!("Song index {} out of range", index);
-            }
-        } else {
-            warn!("Songs not loaded yet — call load_songs() first");
+            } 
         }
-        
     }
 }

@@ -8,6 +8,7 @@ pub fn main_menu() {
     let ui_size = vec2(1000., 600.);
     let ui_position = (vec2(screen_width(), screen_height()) / 2.)  - (ui_size / 2.);
 
+    //Skin for the UI
     let skin = { 
         let persent = 100.;
 
@@ -39,8 +40,10 @@ pub fn main_menu() {
         }
     };
 
+    //Applies the Skin
     root_ui().push_skin(&skin);
 
+    //Displays the UI
     root_ui().window(hash!(), ui_position , ui_size, |ui|{
         let title = "The 2D Platformer Game";
         let text_size = ui.calc_size(title);
@@ -48,14 +51,15 @@ pub fn main_menu() {
         let mut common_ui = CommonUi::new(ui_size);
 
         ui.label(vec2((ui_size.x - text_size.x) / 2., 0.), title);
-        if common_ui.centered_button(ui, "Play") {
+        let playSize = ui.calc_size("Play");
+        if ui.button(vec2( 500. - playSize.x ,300.), "Play") {
 
         }
 
-        if ui.button(None, "Settings") {
+        if common_ui.centered_button(ui, "Settings") {
 
         }
-        if ui.button(None, "Exit") {
+        if common_ui.centered_button(ui, "Exit") {
             quit();
         }
 

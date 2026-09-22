@@ -1,13 +1,15 @@
 mod player;
-mod window_controls;
+mod game;
+mod display_handler;
 mod input_handler;
 mod audio_handler;
+mod window_controls;
 mod util;
 pub(crate) mod ui_code;
 
 use macroquad::prelude::*;
 
-use crate::{audio_handler::{AudioHandler, Music}, input_handler::input_handler, ui_code::main_menu::main_menu, window_controls::WindowControls};
+use crate::{game::Game, window_controls::WindowControls};
 
 
 fn window_conf() -> Conf {
@@ -26,14 +28,10 @@ fn window_conf() -> Conf {
 #[macroquad::main(window_conf)]
 async fn main() {
     set_pc_assets_folder("src/assets");
-    let mut audio_handler = AudioHandler::new();
-    audio_handler.load_songs().await;
-    audio_handler.play_song(Music::MenuMusic);
 
-    loop {
-        
-        input_handler();
-        main_menu();
-        next_frame().await
-    }
+    //Game Setup. This is where everything is put together
+    let mut game = Game::new();
+
+    //runs the game until exited
+    game.run_game().await;
 }
