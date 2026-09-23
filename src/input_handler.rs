@@ -26,9 +26,7 @@ impl InputHandler {
             AUDIOSYSTEM.lock().unwrap().play_song(Music::BossFight);
         }
         if is_key_pressed(KeyCode::N) {
-            DISPLAYSYSTEM.lock().unwrap().change_current_ui(Displays::Game);
         }
-        
     }
 }
 

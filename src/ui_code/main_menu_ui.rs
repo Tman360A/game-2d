@@ -2,7 +2,7 @@ use macroquad::miniquad::window::quit;
 use macroquad::prelude::*;
 use macroquad::ui::{Skin, hash, root_ui};
 
-use crate::ui_code::common_ui::{self, CommonUi};
+use crate::display_handler::{DISPLAYSYSTEM, Displays};
 
 pub fn main_menu() {
     let ui_size = vec2(1000., 600.);
@@ -26,7 +26,8 @@ pub fn main_menu() {
         let button_style = root_ui()
             .style_builder()
             .color(BLACK)
-            .color_hovered(DARKBLUE)
+            .color_hovered(DARKGRAY)
+            .color_clicked(BLACK)
             .font_size(40)
             .text_color(WHITE)
             .build();
@@ -48,21 +49,19 @@ pub fn main_menu() {
         let title = "The 2D Platformer Game";
         let text_size = ui.calc_size(title);
 
-        let mut common_ui = CommonUi::new(ui_size);
-
         ui.label(vec2((ui_size.x - text_size.x) / 2., 0.), title);
-        let playSize = ui.calc_size("Play");
-        if ui.button(vec2( 500. - playSize.x ,300.), "Play") {
+        let play_size = ui.calc_size("Play");
+        if ui.button(vec2( (ui_size.x - play_size.x) / 2. ,200.), "Play") {
+            DISPLAYSYSTEM.lock().unwrap().change_current_ui(Displays::Game);
+        }
+        let settings_size = ui.calc_size("Settings");
+        if ui.button(vec2( (ui_size.x - settings_size.x) / 2. ,300.), "Settings") {
 
         }
-
-        if common_ui.centered_button(ui, "Settings") {
-
-        }
-        if common_ui.centered_button(ui, "Exit") {
+        let exit_size = ui.calc_size("Exit");
+        if ui.button(vec2( (ui_size.x - exit_size.x) / 2. ,400.), "Exit") {
             quit();
         }
-
     });
 
     root_ui().pop_skin();

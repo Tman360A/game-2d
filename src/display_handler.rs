@@ -1,5 +1,5 @@
 use std::sync::{LazyLock, Mutex};
-use crate::ui_code::main_menu::main_menu;
+use crate::ui_code::{game_ui::game, main_menu_ui::main_menu};
 
 pub enum Displays {
     MainMenu,
@@ -27,6 +27,7 @@ impl DisplayHandler {
     pub fn display_current_ui(&mut self) -> () {
         match self.current_display {
             Displays::MainMenu => main_menu(),
+            Displays::Game => game(),
             _ => (),
         }
     }
