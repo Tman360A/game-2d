@@ -2,9 +2,9 @@ use macroquad::miniquad::window::quit;
 use macroquad::prelude::*;
 use macroquad::ui::{Skin, hash, root_ui};
 
-use crate::display_handler::{DISPLAYSYSTEM, Displays};
+use crate::display_handler::{DISPLAYSYSTEM, DisplayHandler, Displays};
 
-pub fn main_menu() {
+pub fn main_menu(display: &mut DisplayHandler) {
     let ui_size = vec2(1000., 600.);
     let ui_position = (vec2(screen_width(), screen_height()) / 2.)  - (ui_size / 2.);
 
@@ -52,7 +52,7 @@ pub fn main_menu() {
         ui.label(vec2((ui_size.x - text_size.x) / 2., 0.), title);
         let play_size = ui.calc_size("Play");
         if ui.button(vec2( (ui_size.x - play_size.x) / 2. ,200.), "Play") {
-            DISPLAYSYSTEM.lock().unwrap().change_current_ui(Displays::Game);
+            display.change_current_ui(Displays::Game);
         }
         let settings_size = ui.calc_size("Settings");
         if ui.button(vec2( (ui_size.x - settings_size.x) / 2. ,300.), "Settings") {

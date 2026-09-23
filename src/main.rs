@@ -1,4 +1,3 @@
-mod player;
 mod game;
 mod display_handler;
 mod input_handler;
@@ -6,6 +5,7 @@ mod audio_handler;
 mod window_controls;
 mod util;
 pub(crate) mod ui_code;
+pub(crate) mod platformer;
 
 use macroquad::prelude::*;
 

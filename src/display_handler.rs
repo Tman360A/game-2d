@@ -1,5 +1,5 @@
 use std::sync::{LazyLock, Mutex};
-use crate::ui_code::{game_ui::game, main_menu_ui::main_menu};
+use crate::{platformer::{game_state::{GAMESTATE, GameState}, platformer_display::platformer_display}, ui_code::main_menu_ui::main_menu};
 
 pub enum Displays {
     MainMenu,
@@ -14,6 +14,8 @@ pub struct DisplayHandler {
 pub static DISPLAYSYSTEM: LazyLock<Mutex<DisplayHandler>> = LazyLock::new(|| Mutex::new(DisplayHandler::new()));
 
 impl DisplayHandler {
+    
+
     fn new() -> Self {
         Self {
             current_display: Displays::MainMenu,
@@ -26,8 +28,8 @@ impl DisplayHandler {
 
     pub fn display_current_ui(&mut self) -> () {
         match self.current_display {
-            Displays::MainMenu => main_menu(),
-            Displays::Game => game(),
+            Displays::MainMenu => main_menu(self),
+            Displays::Game => platformer_display(&mut GAMESTATE.lock().unwrap()),
             _ => (),
         }
     }
