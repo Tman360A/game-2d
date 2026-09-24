@@ -2,7 +2,7 @@ use macroquad::prelude::*;
 use macroquad::ui::{Skin, hash, root_ui};
 
 pub fn loading(progress: f32) {
-    let ui_size = vec2(1550., 25.);
+    let ui_size = vec2(screen_width() / 1.5 , 25.);
     let ui_position = (vec2(screen_width(), screen_height()) / 2.)  - (ui_size / 2.);
 
     let skin = {

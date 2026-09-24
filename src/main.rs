@@ -20,7 +20,7 @@ fn window_conf() -> Conf {
         high_dpi: false,
         fullscreen: WindowControls::is_fullscreen(),
         sample_count: 0,
-        window_resizable: false,
+        window_resizable: true,
         ..Default::default()
     }
 }

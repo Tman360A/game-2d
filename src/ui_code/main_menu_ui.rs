@@ -2,10 +2,11 @@ use macroquad::miniquad::window::quit;
 use macroquad::prelude::*;
 use macroquad::ui::{Skin, hash, root_ui};
 
-use crate::display_handler::{DISPLAYSYSTEM, DisplayHandler, Displays};
+use crate::audio_handler::{AUDIOSYSTEM, Music};
+use crate::display_handler::{DisplayHandler, Displays};
 
 pub fn main_menu(display: &mut DisplayHandler) {
-    let ui_size = vec2(1000., 600.);
+    let ui_size = vec2(screen_width() / 1.5 , screen_height() / 1.5);
     let ui_position = (vec2(screen_width(), screen_height()) / 2.)  - (ui_size / 2.);
 
     //Skin for the UI
@@ -53,6 +54,7 @@ pub fn main_menu(display: &mut DisplayHandler) {
         let play_size = ui.calc_size("Play");
         if ui.button(vec2( (ui_size.x - play_size.x) / 2. ,200.), "Play") {
             display.change_current_ui(Displays::Game);
+            AUDIOSYSTEM.lock().unwrap().play_song(Music::Overworld1);
         }
         let settings_size = ui.calc_size("Settings");
         if ui.button(vec2( (ui_size.x - settings_size.x) / 2. ,300.), "Settings") {

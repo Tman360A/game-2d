@@ -1,5 +1,5 @@
 use std::sync::{LazyLock, Mutex};
-use crate::{platformer::{game_state::{GAMESTATE, GameState}, platformer_display::platformer_display}, ui_code::main_menu_ui::main_menu};
+use crate::{platformer::{game_state::GAMESTATE, platformer_display::platformer_display}, ui_code::main_menu_ui::main_menu};
 
 pub enum Displays {
     MainMenu,
