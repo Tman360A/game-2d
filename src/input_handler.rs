@@ -1,7 +1,7 @@
 use std::sync::{LazyLock, Mutex};
 use macroquad::{miniquad::window::quit, prelude::*};
 
-use crate::{audio_handler::{AUDIOSYSTEM, Music}, display_handler::{DISPLAYSYSTEM, Displays}, window_controls::WindowControls};
+use crate::{audio_handler::{AUDIOSYSTEM, Music}, window_controls::WindowControls};
 
 pub struct InputHandler;
 

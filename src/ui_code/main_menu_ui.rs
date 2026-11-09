@@ -11,11 +11,11 @@ pub fn main_menu(display: &mut DisplayHandler) {
 
     //Skin for the UI
     let skin = { 
-        let persent = 100.;
+        let percent = 100.;
 
         let window_style = root_ui()
         .style_builder()
-        .color(DARKGRAY.with_alpha(persent / 180.))
+        .color(DARKGRAY.with_alpha(percent / 180.))
         .build();
 
         let label_style = root_ui()
